@@ -1,43 +1,66 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { HapticTab } from "@/components/HapticTab";
+import { FontAwesome } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
-      }}>
+        tabBarStyle: {
+          backgroundColor: "#F5F5F5", // màu nền tab bar
+          height: 70, // chiều cao tab bar
+          borderTopWidth: 0, // bỏ đường viền trên
+        },
+        tabBarActiveTintColor: "#0cd5d5", // màu icon/text khi active
+        tabBarInactiveTintColor: "#667085", // màu icon/text khi inactive
+        tabBarLabelStyle: {
+          fontSize: 12,
+          paddingBottom: 5,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: "Trang chủ",
+          headerShown: false,
+          tabBarButton: HapticTab,
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="home" color={color} size={size} />
+          ),
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="schedule"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: "Lịch ca",
+          headerShown: false,
+          tabBarButton: HapticTab,
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="calendar" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="chat"
+        options={{
+          title: "Chat connect",
+          headerShown: false,
+          tabBarButton: HapticTab,
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="comments-o" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="account"
+        options={{
+          title: "Tài khoản",
+          headerShown: false,
+          tabBarButton: HapticTab,
+          tabBarIcon: ({ color, size }) => (
+            <FontAwesome name="user-o" color={color} size={size} />
+          ),
         }}
       />
     </Tabs>
